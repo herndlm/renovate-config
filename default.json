@@ -1,0 +1,43 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "schedule:weekly",
+    ":semanticCommitsDisabled"
+  ],
+  "additionalBranchPrefix": "{{parentDir}}-",
+  "rangeStrategy": "update-lockfile",
+  "rebaseWhen": "conflicted",
+  "separateMinorPatch": true,
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "enabled": false
+    },
+    {
+      "matchPaths": [".github/workflows/*.yml"],
+      "enabled": true,
+      "groupName": "github-actions"
+    },
+    {
+      "matchPaths": ["+(composer.json)"],
+      "enabled": true,
+      "groupName": "root-composer"
+    },
+    {
+      "matchPaths": ["*/*"],
+      "enabled": true,
+      "groupName": "{{parentDir}}"
+    },
+    {
+      "matchPackagePrefixes": ["nette/"],
+      "groupName": "{{parentDir}} nette packages",
+      "groupSlug": "nette"
+    },
+    {
+      "matchPackagePrefixes": ["symfony/"],
+      "groupName": "{{parentDir}} symfony packages",
+      "groupSlug": "symfony"
+    }
+  ]
+}
